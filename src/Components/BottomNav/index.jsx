@@ -12,9 +12,6 @@ export default function BottomNav({ showSearchModal }) {
         <label htmlFor='search' className='cursor-pointer' onClick={() => showSearchModal()}>
           <FontAwesomeIcon icon={Icon.faMagnifyingGlass} size='xl' />
         </label>
-        <Link to={-1}>
-          <FontAwesomeIcon icon={Icon.faPlay} size='xl' className='rotate-x-180' />
-        </Link>
       </div>
     </nav>
   )
