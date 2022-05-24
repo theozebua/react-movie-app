@@ -8,12 +8,12 @@ export default function Footer() {
         <div className='grid gap-8 pt-4 md:grid-cols-3'>
           <div className='flex flex-col gap-2'>
             <Link to={'/'}>Home</Link>
-            <Link to={'/about'}>About</Link>
-            <Link to={'/contact'}>Contact</Link>
+            <Link to={'#'}>About</Link>
+            <Link to={'#'}>Contact</Link>
           </div>
           <div className='flex flex-col gap-2'>
-            <Link to={'/terms-and-conditions'}>Terms &amp; Conditions</Link>
-            <Link to={'/privacy-and-policy'}>Privacy &amp; Policy</Link>
+            <Link to={'#'}>Terms &amp; Conditions</Link>
+            <Link to={'#'}>Privacy &amp; Policy</Link>
           </div>
           <div className='flex flex-col gap-2'>
             <a href='https://www.themoviedb.org/' target='_blank' rel='noopener noreferrer'>

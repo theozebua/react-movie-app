@@ -44,9 +44,9 @@ export default function Navbar() {
           </div>
         </form>
         <div className='hidden text-lg lg:flex lg:gap-10'>
-          <Link to='/'>Home</Link>
-          <Link to='/about'>About</Link>
-          <Link to='/contact'>Contact</Link>
+          <Link to={'/'}>Home</Link>
+          <Link to={'#'}>About</Link>
+          <Link to={'#'}>Contact</Link>
         </div>
       </div>
     </nav>

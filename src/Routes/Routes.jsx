@@ -18,10 +18,10 @@ export const Routes = () => {
           </MovieProvider>
         }
       />
-      <Route path='/about' element={<Home />} />
-      <Route path='/contact' element={<Home />} />
-      <Route path='/terms-and-conditions' element={<Home />} />
-      <Route path='/privacy-and-policy' element={<Home />} />
+      <Route path='#' element={<Home />} />
+      <Route path='#' element={<Home />} />
+      <Route path='#' element={<Home />} />
+      <Route path='#' element={<Home />} />
       <Route
         path='movies/:category'
         element={
