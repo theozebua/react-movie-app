@@ -3,7 +3,7 @@ import * as Icon from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SearchModal({ showModal, showSearchModal }) {
+export default function SearchModal({ showModal, showSearchModal, setShowModal }) {
   const [q, setQ] = useState('')
   const navigate = useNavigate()
 
@@ -11,6 +11,7 @@ export default function SearchModal({ showModal, showSearchModal }) {
     e.preventDefault()
     navigate({ pathname: '/search', search: `?s=${q}` }, { replace: true, state: { q } })
     setQ('')
+    setShowModal(false)
   }
 
   return (

@@ -24,7 +24,7 @@ export default function App() {
         <Routes />
       </ScrollToTop>
       <BottomNav showSearchModal={showSearchModal} />
-      <SearchModal showModal={showModal} showSearchModal={showSearchModal} />
+      <SearchModal showModal={showModal} showSearchModal={showSearchModal} setShowModal={setShowModal} />
       <Footer />
     </Router>
   )
