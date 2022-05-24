@@ -50,6 +50,7 @@ export default function Search() {
 
   useEffect(() => {
     getMovies()
+    // eslint-disable-next-line
   }, [page, location.search])
   return (
     <>

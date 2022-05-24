@@ -35,6 +35,7 @@ export default function Movie() {
 
     getMovie()
     getTrailer()
+    // eslint-disable-next-line
   }, [id])
   return (
     <>
@@ -84,7 +85,7 @@ export default function Movie() {
             <section>
               <Heading text={'Release Date'} />
               <span className='text-sm'>
-                {moment(movie.release_date).format('MMMM Do YYYY')} {movie.status != 'Released' && `( ${movie.status} )`}
+                {moment(movie.release_date).format('MMMM Do YYYY')} {movie.status !== 'Released' && `( ${movie.status} )`}
               </span>
             </section>
 

@@ -22,6 +22,7 @@ export const MovieProvider = ({ children }) => {
     const res = await fetch(url)
     const data = await res.json()
 
+    // eslint-disable-next-line
     switch (category) {
       case 'popular':
         setPopular(data.results)
@@ -53,6 +54,7 @@ export const MovieProvider = ({ children }) => {
     const res = await fetch(url)
     const data = await res.json()
 
+    // eslint-disable-next-line
     switch (category) {
       case 'similar':
         setSimilar(data.results)
