@@ -1,3 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  ::-webkit-scrollbar {
+    @apply hidden h-3 w-3 lg:block;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-800;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-700;
+  }
+
+  html {
+    font-family: 'Signika Negative', sans-serif;
+    scrollbar-width: thin;
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-black text-slate-50;
+  }
+
+  .snap-x {
+    scrollbar-width: thin;
+  }
+}
+
+@layer utilities {
+  .rotate-x-180 {
+    transform: rotateY(180deg);
+  }
+}
