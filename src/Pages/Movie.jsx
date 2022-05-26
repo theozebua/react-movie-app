@@ -11,12 +11,18 @@ import MovieContext from '../Contexts/MovieContext'
 import { useParams } from 'react-router-dom'
 
 export default function Movie() {
-  const { movie, similar, recommendations, casts, fetchMovie, fetchMoviesByCategoryAndId, fetchCasts, fetchTrailerByMovieId } = useContext(MovieContext)
+  const { movie, similar, recommendations, casts, fetchMovie, fetchMoviesByCategoryAndId, fetchCasts, fetchTrailerByMovieId, fetchReviewsByMovieId } = useContext(MovieContext)
 
   const [loading, setLoading] = useState(true)
   const [trailer, setTrailer] = useState({})
+  const [reviews, setReviews] = useState([])
 
   const { id } = useParams()
+
+  const handleShowMore = (e) => {
+    let showMore = e.target.getAttribute('data-showmore') === 'true'
+    setReviews(reviews.map((review) => (review.id === e.target.id ? { ...review, showMore: !showMore } : review)))
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -33,8 +39,14 @@ export default function Movie() {
       setTrailer(trailer)
     }
 
+    const getReviews = async () => {
+      const reviews = await fetchReviewsByMovieId(id)
+      setReviews(reviews.map((review) => ({ ...review, showMore: false })))
+    }
+
     getMovie()
     getTrailer()
+    getReviews()
     // eslint-disable-next-line
   }, [id])
   return (
@@ -101,22 +113,44 @@ export default function Movie() {
             )}
 
             {trailer.key !== undefined && (
-              <section className='aspect-video'>
-                <iframe
-                  className='h-full w-full rounded-md'
-                  src={`https://www.youtube.com/embed/${trailer.key}`}
-                  title='YouTube video player'
-                  frameBorder={'0'}
-                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                  allowFullScreen
-                ></iframe>
-              </section>
+              <iframe
+                className='aspect-video rounded-md'
+                src={`https://www.youtube.com/embed/${trailer.key}`}
+                title='YouTube video player'
+                frameBorder={'0'}
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              ></iframe>
             )}
 
             <section>
               <Heading text={'Casts'} />
               <div className='flex snap-x gap-2 overflow-x-auto pb-4'>{casts.map((cast, i) => cast.profile_path && <Casts key={i} cast={cast} />)}</div>
             </section>
+
+            {reviews.length > 0 && (
+              <section className='mt-4'>
+                <Heading text={'Reviews'} />
+                <div className='flex flex-col gap-12'>
+                  {reviews.slice(0, 5).map((review, i) => (
+                    <div key={i}>
+                      <div className='mb-2 flex gap-2'>
+                        <FontAwesomeIcon icon={Icon.faUser} />
+                        <h5 className='mb-1 text-sm'>{review.author}</h5>
+                      </div>
+                      <p className='text-xs'>
+                        {review.showMore ? review.content : review.content.substring(0, 350)} {!review.showMore && '...'}{' '}
+                        <button className='text-blue-400' id={review.id} data-showmore={review.showMore} onClick={handleShowMore}>
+                          [Show {!review.showMore ? 'more' : 'less'}]
+                        </button>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <hr />
 
             <section>{similar.length > 0 && <Container label='Similar Movies' movies={similar} />}</section>
 
