@@ -49,6 +49,7 @@ export default function Movie() {
     getReviews()
     // eslint-disable-next-line
   }, [id])
+  console.log(trailer)
   return (
     <>
       {loading ? (
@@ -85,14 +86,16 @@ export default function Movie() {
               </div>
             </div>
 
-            <section>
-              <Heading text={'Genres'} />
-              <div className='flex flex-wrap gap-3'>
-                {movie.genres.map((genre, i) => (
-                  <Badge key={i} item={genre} />
-                ))}
-              </div>
-            </section>
+            {movie.genres.length !== 0 && (
+              <section>
+                <Heading text={'Genres'} />
+                <div className='flex flex-wrap gap-3'>
+                  {movie.genres.map((genre, i) => (
+                    <Badge key={i} item={genre} />
+                  ))}
+                </div>
+              </section>
+            )}
 
             <section>
               <Heading text={'Release Date'} />
@@ -112,7 +115,7 @@ export default function Movie() {
               </section>
             )}
 
-            {trailer.key !== undefined && (
+            {trailer !== undefined && trailer.key !== undefined && (
               <iframe
                 className='aspect-video rounded-md'
                 src={`https://www.youtube.com/embed/${trailer.key}`}
@@ -123,10 +126,12 @@ export default function Movie() {
               ></iframe>
             )}
 
-            <section>
-              <Heading text={'Casts'} />
-              <div className='flex snap-x gap-2 overflow-x-auto pb-4'>{casts.map((cast, i) => cast.profile_path && <Casts key={i} cast={cast} />)}</div>
-            </section>
+            {casts.length !== 0 && (
+              <section>
+                <Heading text={'Casts'} />
+                <div className='flex snap-x gap-2 overflow-x-auto pb-4'>{casts.map((cast, i) => cast.profile_path && <Casts key={i} cast={cast} />)}</div>
+              </section>
+            )}
 
             {reviews.length > 0 && (
               <section className='mt-4'>
