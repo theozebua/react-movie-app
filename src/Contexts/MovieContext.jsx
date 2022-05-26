@@ -89,8 +89,18 @@ export const MovieProvider = ({ children }) => {
     return data.results.filter((trailer) => trailer.site === 'YouTube' && trailer.type === 'Trailer')[0]
   }
 
+  const fetchReviewsByMovieId = async (id) => {
+    const url = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`
+    const res = await fetch(url)
+    const data = await res.json()
+
+    return data.results
+  }
+
   return (
-    <MovieContext.Provider value={{ popular, upcoming, nowPlaying, topRated, movie, similar, recommendations, casts, fetchMoviesByCategory, fetchMovie, fetchMoviesByCategoryAndId, fetchCasts, fetchMoviesBySearch, fetchTrailerByMovieId }}>
+    <MovieContext.Provider
+      value={{ popular, upcoming, nowPlaying, topRated, movie, similar, recommendations, casts, fetchMoviesByCategory, fetchMovie, fetchMoviesByCategoryAndId, fetchCasts, fetchMoviesBySearch, fetchTrailerByMovieId, fetchReviewsByMovieId }}
+    >
       {children}
     </MovieContext.Provider>
   )
