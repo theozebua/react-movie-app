@@ -43,7 +43,7 @@ To run this project, you will need to add the following environment variables to
 
 ## Demo
 
-http://react-movie-app.theozebua.com
+https://react-movie-app-theozebua.vercel.app/
 
 ## License
 
