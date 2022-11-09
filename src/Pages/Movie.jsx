@@ -11,7 +11,17 @@ import MovieContext from '../Contexts/MovieContext'
 import { useParams } from 'react-router-dom'
 
 export default function Movie() {
-  const { movie, similar, recommendations, casts, fetchMovie, fetchMoviesByCategoryAndId, fetchCasts, fetchTrailerByMovieId, fetchReviewsByMovieId } = useContext(MovieContext)
+  const {
+    movie,
+    similar,
+    recommendations,
+    casts,
+    fetchMovie,
+    fetchMoviesByCategoryAndId,
+    fetchCasts,
+    fetchTrailerByMovieId,
+    fetchReviewsByMovieId
+  } = useContext(MovieContext)
 
   const [loading, setLoading] = useState(true)
   const [trailer, setTrailer] = useState({})
@@ -21,7 +31,11 @@ export default function Movie() {
 
   const handleShowMore = (e) => {
     let showMore = e.target.getAttribute('data-showmore') === 'true'
-    setReviews(reviews.map((review) => (review.id === e.target.id ? { ...review, showMore: !showMore } : review)))
+    setReviews(
+      reviews.map((review) =>
+        review.id === e.target.id ? { ...review, showMore: !showMore } : review
+      )
+    )
   }
 
   useEffect(() => {
@@ -49,7 +63,7 @@ export default function Movie() {
     getReviews()
     // eslint-disable-next-line
   }, [id])
-  console.log(trailer)
+
   return (
     <>
       {loading ? (
@@ -57,25 +71,50 @@ export default function Movie() {
       ) : (
         <>
           <div className='relative -z-10'>
-            {movie.backdrop_path && <img className='max-h-max w-full object-cover' src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={movie.title} />}
+            {movie.backdrop_path && (
+              <img
+                className='max-h-max w-full object-cover'
+                src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                alt={movie.title}
+              />
+            )}
             <div className='absolute top-0 left-0 h-full w-full bg-gradient-to-b from-black/60 to-black'></div>
           </div>
-          <div className={`container mx-auto flex flex-col gap-8 p-4 lg:gap-16 ${movie.backdrop_path ? '-mt-16 md:-mt-28 lg:-mt-96' : 'mt-24'}`}>
+          <div
+            className={`container mx-auto flex flex-col gap-8 p-4 lg:gap-16 ${
+              movie.backdrop_path ? '-mt-16 md:-mt-28 lg:-mt-96' : 'mt-24'
+            }`}>
             <div className={`${movie.poster_path && 'lg:flex lg:gap-10'}`}>
               <div className='hidden lg:block lg:w-full lg:max-w-md'>
-                {movie.poster_path && <img className='rounded-lg transition-all duration-200 hover:brightness-75' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />}
+                {movie.poster_path && (
+                  <img
+                    className='rounded-lg transition-all duration-200 hover:brightness-75'
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                )}
               </div>
               <div className='flex flex-col gap-8 lg:gap-16'>
                 <section>
-                  <h1 className='mb-2 text-2xl md:mb-4 md:text-6xl'>{movie.title}</h1>
-                  {movie.tagline && <span className='block text-xs md:text-xl'>&ldquo; {movie.tagline} &rdquo;</span>}
+                  <h1 className='mb-2 text-2xl md:mb-4 md:text-6xl'>
+                    {movie.title}
+                  </h1>
+                  {movie.tagline && (
+                    <span className='block text-xs md:text-xl'>
+                      &ldquo; {movie.tagline} &rdquo;
+                    </span>
+                  )}
                 </section>
 
                 <section>
                   <Heading text={'Rating'} />
-                  <FontAwesomeIcon icon={Icon.faStar} className='mr-1 text-yellow-400' />
+                  <FontAwesomeIcon
+                    icon={Icon.faStar}
+                    className='mr-1 text-yellow-400'
+                  />
                   <span>
-                    {movie.vote_average.toFixed(1)} <small className='text-slate-50/75'>/ 10</small>
+                    {movie.vote_average.toFixed(1)}{' '}
+                    <small className='text-slate-50/75'>/ 10</small>
                   </span>
                 </section>
 
@@ -91,7 +130,10 @@ export default function Movie() {
                 <Heading text={'Genres'} />
                 <div className='flex flex-wrap gap-3'>
                   {movie.genres.map((genre, i) => (
-                    <Badge key={i} item={genre} />
+                    <Badge
+                      key={i}
+                      item={genre}
+                    />
                   ))}
                 </div>
               </section>
@@ -100,7 +142,8 @@ export default function Movie() {
             <section>
               <Heading text={'Release Date'} />
               <span className='text-sm'>
-                {moment(movie.release_date).format('MMMM Do YYYY')} {movie.status !== 'Released' && `( ${movie.status} )`}
+                {moment(movie.release_date).format('MMMM Do YYYY')}{' '}
+                {movie.status !== 'Released' && `( ${movie.status} )`}
               </span>
             </section>
 
@@ -109,7 +152,10 @@ export default function Movie() {
                 <Heading text={'Production Companies'} />
                 <div className='flex flex-wrap gap-3'>
                   {movie.production_companies.map((company, i) => (
-                    <Badge key={i} item={company} />
+                    <Badge
+                      key={i}
+                      item={company}
+                    />
                   ))}
                 </div>
               </section>
@@ -122,14 +168,23 @@ export default function Movie() {
                 title='YouTube video player'
                 frameBorder={'0'}
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              ></iframe>
+                allowFullScreen></iframe>
             )}
 
             {casts.length !== 0 && (
               <section>
                 <Heading text={'Casts'} />
-                <div className='flex snap-x gap-2 overflow-x-auto pb-4'>{casts.map((cast, i) => cast.profile_path && <Casts key={i} cast={cast} />)}</div>
+                <div className='flex snap-x gap-2 overflow-x-auto pb-4'>
+                  {casts.map(
+                    (cast, i) =>
+                      cast.profile_path && (
+                        <Casts
+                          key={i}
+                          cast={cast}
+                        />
+                      )
+                  )}
+                </div>
               </section>
             )}
 
@@ -144,8 +199,15 @@ export default function Movie() {
                         <h5 className='mb-1 text-sm'>{review.author}</h5>
                       </div>
                       <p className='text-xs'>
-                        {review.showMore ? review.content : review.content.substring(0, 350)} {!review.showMore && '...'}{' '}
-                        <button className='text-blue-400' id={review.id} data-showmore={review.showMore} onClick={handleShowMore}>
+                        {review.showMore
+                          ? review.content
+                          : review.content.substring(0, 350)}{' '}
+                        {!review.showMore && '...'}{' '}
+                        <button
+                          className='text-blue-400'
+                          id={review.id}
+                          data-showmore={review.showMore}
+                          onClick={handleShowMore}>
                           [Show {!review.showMore ? 'more' : 'less'}]
                         </button>
                       </p>
@@ -157,9 +219,23 @@ export default function Movie() {
 
             <hr />
 
-            <section>{similar.length > 0 && <Container label='Similar Movies' movies={similar} />}</section>
+            <section>
+              {similar.length > 0 && (
+                <Container
+                  label='Similar Movies'
+                  movies={similar}
+                />
+              )}
+            </section>
 
-            <section>{recommendations.length > 0 && <Container label='Recommendations' movies={recommendations} />}</section>
+            <section>
+              {recommendations.length > 0 && (
+                <Container
+                  label='Recommendations'
+                  movies={recommendations}
+                />
+              )}
+            </section>
           </div>
         </>
       )}
